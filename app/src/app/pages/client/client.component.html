@@ -1,0 +1,82 @@
+<div class="client-component">
+  <mat-card>
+    <mat-card-content
+      ><strong>Total de Clientes: </strong
+      >{{ generalTotals.clients }}</mat-card-content
+    >
+  </mat-card>
+  <mat-card>
+    <mat-card-content
+      ><strong>Total de Empreendimentos: </strong>
+      {{ generalTotals.enterprises }}</mat-card-content
+    >
+  </mat-card>
+  <mat-card>
+    <mat-card-content
+      ><strong>Total de Imóveis/Unidades: </strong>
+      {{ generalTotals.realties }}</mat-card-content
+    >
+  </mat-card>
+</div>
+<div class="table-list-clients">
+  <mat-form-field>
+    <mat-label>Filtro</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Pesquisar..."
+      #input
+    />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="clients" class="mat-elevation-z8">
+    <ng-container matColumnDef="image_src">
+      <th mat-header-cell *matHeaderCellDef>Imagem</th>
+      <td mat-cell *matCellDef="let element">
+        <img
+          class="img-client"
+          src="{{ element.image_src }}"
+          alt="Logo empresa"
+        />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="_id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element">{{ element._id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="total_enterprises">
+      <th mat-header-cell *matHeaderCellDef>Empreendimentos</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.total_enterprises }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total_realties">
+      <th mat-header-cell *matHeaderCellDef>Imóveis/Unidades</th>
+      <td mat-cell *matCellDef="let element">{{ element.total_realties }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="goToDetails(element)">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter ""</td>
+    </tr>
+  </table>
+</div>
