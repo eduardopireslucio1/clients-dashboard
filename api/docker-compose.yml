@@ -6,4 +6,6 @@ services:
     image: node
     ports:
       - "3000:3000"
-    working_dir: /api
+    volumes:
+      - .:/api
+      - /api/node_modules
