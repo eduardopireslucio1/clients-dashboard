@@ -1,13 +1,9 @@
 version: '3.7'
 services:
- node:
+  node:
     build: .
     command: npm start
     image: node
     ports:
       - "3000:3000"
-    volumes:
-      - type: bind
-        source: .
-        target: /api
     working_dir: /api
