@@ -10,6 +10,10 @@ router.get('/totalizers', (req, res) => {
     return ClientController.getTotalizers(req, res);
 });
 
+router.get('/filterClients', (req, res) => {
+    return ClientController.filterClients(req, res);
+});
+
 router.get('/:id', (req, res) => {
     return ClientController.getClient(req, res);
 });

@@ -31,11 +31,13 @@ export class ClientComponent implements OnInit {
    }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.clients.filter = filterValue.trim().toLowerCase();
+    setTimeout(() => {
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.clients.filter = filterValue.trim().toLowerCase();
+    }, 2000);
   }
 
   goToDetails(client: Client) {
-    this.router.navigate(['client-details', client._id]);
+    this.router.navigate(['client', client._id]);
   }
 }

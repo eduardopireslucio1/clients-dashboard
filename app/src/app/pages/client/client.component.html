@@ -1,22 +1,24 @@
 <div class="client-component">
-  <mat-card>
-    <mat-card-content
-      ><strong>Total de Clientes: </strong
-      >{{ generalTotals.clients }}</mat-card-content
-    >
-  </mat-card>
-  <mat-card>
-    <mat-card-content
-      ><strong>Total de Empreendimentos: </strong>
-      {{ generalTotals.enterprises }}</mat-card-content
-    >
-  </mat-card>
-  <mat-card>
-    <mat-card-content
-      ><strong>Total de Imóveis/Unidades: </strong>
-      {{ generalTotals.realties }}</mat-card-content
-    >
-  </mat-card>
+  <mat-card class="cards-totalizers">
+    <mat-card class="card-totalizer">
+      <mat-card-content
+        ><strong>Total de Clientes: </strong
+        >{{ generalTotals.clients }}</mat-card-content
+      >
+    </mat-card>
+    <mat-card class="card-totalizer">
+      <mat-card-content
+        ><strong>Total de Empreendimentos: </strong>
+        {{ generalTotals.enterprises }}</mat-card-content
+      >
+    </mat-card>
+    <mat-card class="card-totalizer">
+      <mat-card-content
+        ><strong>Total de Imóveis/Unidades: </strong>
+        {{ generalTotals.realties }}</mat-card-content
+      >
+    </mat-card>
+</mat-card>
 </div>
 <div class="table-list-clients">
   <mat-form-field>

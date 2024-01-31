@@ -11,7 +11,7 @@ import { EnterpriseService } from 'src/app/services/enterprise.service';
 
 export const ClientDetailsRoutes: Routes = [
   {
-    path: 'client-details/:id',
+    path: 'client/:id',
     component: ClientDetailsComponent
   }
 ];

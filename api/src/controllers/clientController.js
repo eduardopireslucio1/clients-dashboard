@@ -2,6 +2,7 @@ const ListClients = require('../usecases/listClients');
 const GetTotalizers = require('../usecases/getTotalizers');
 const GetClient = require('../usecases/getClient');
 const GetEnterprises = require('../usecases/getEnterprises');
+const FilterClients = require('../usecases/filterClients');
 
 class ClientController {
     async index(req, res) {
@@ -40,6 +41,15 @@ class ClientController {
             return res.json(enterprises);
         } catch (error) {
             return res.status(500).json({ error: 'Fail to get enterprises!' });
+        }
+    }
+
+    async filterClients(req, res) {
+        try {
+            const clients = await FilterClients.execute(req.query);
+            return res.json(clients);
+        } catch (error) {
+            return res.status(500).json({ error: 'Fail to filter clients!' });
         }
     }
 }
