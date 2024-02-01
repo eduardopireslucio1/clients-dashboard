@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from "@angular/router";
 import { Client } from "src/app/interfaces/client";
 import { GeneralTotals } from "src/app/interfaces/generalTotals";
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: "app-client",
@@ -12,6 +14,7 @@ import { GeneralTotals } from "src/app/interfaces/generalTotals";
 })
 export class ClientComponent implements OnInit {
   clients: MatTableDataSource<Client>;
+  private filterSubject = new Subject<string>();
   displayedColumns: string[] = ['image_src', '_id', 'name', 'total_enterprises', 'total_realties', 'actions'];
   generalTotals: GeneralTotals = {
     clients: 0,
@@ -19,22 +22,25 @@ export class ClientComponent implements OnInit {
     realties: 0,
   }
 
-  constructor(private clientService: ClientService, private router: Router) {}
+  constructor(private clientService: ClientService, private router: Router) { }
 
   ngOnInit(): void {
+    this.filterSubject
+      .pipe(debounceTime(2000))
+      .subscribe((filterValue) => {
+        this.clients.filter = filterValue;
+    });
     this.clientService.getAll().subscribe((clientsData: Client[]) => {
-       this.clients = new MatTableDataSource(clientsData);
+      this.clients = new MatTableDataSource(clientsData);
     });
     this.clientService.getGeneralTotals().subscribe((generalTotalsData: GeneralTotals) => {
       this.generalTotals = generalTotalsData;
     });
-   }
+  }
 
   applyFilter(event: Event) {
-    setTimeout(() => {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.clients.filter = filterValue.trim().toLowerCase();
-    }, 2000);
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filterSubject.next(filterValue.trim().toLowerCase());
   }
 
   goToDetails(client: Client) {
